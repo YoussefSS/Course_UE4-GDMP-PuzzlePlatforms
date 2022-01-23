@@ -29,7 +29,9 @@ void AMovingPlatform::Tick(float DeltaTime)
 	if (HasAuthority()) // On server
 	{
 		FVector Location = GetActorLocation();
-		Location += FVector(Speed * DeltaTime, 0.f, 0.f);
+		FVector GlobalTargetLocation = GetTransform().TransformPosition(TargetLocation); // Transform goes from local to global, inverse transform goes from global to local
+		FVector Direction = (GlobalTargetLocation - Location).GetSafeNormal();
+		Location += Speed * DeltaTime * Direction;
 		SetActorLocation(Location);
 	}
 }
