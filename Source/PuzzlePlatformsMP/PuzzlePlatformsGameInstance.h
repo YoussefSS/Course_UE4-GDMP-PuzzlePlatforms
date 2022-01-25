@@ -19,4 +19,9 @@ public:
 
 	virtual void Init();
 
+	UFUNCTION(Exec) // Making this a console command
+	void Host();
+
+	UFUNCTION(Exec)
+	void Join(const FString& Address);
 };
