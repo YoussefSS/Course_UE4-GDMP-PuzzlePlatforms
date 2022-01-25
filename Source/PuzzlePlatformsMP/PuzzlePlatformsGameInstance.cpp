@@ -28,5 +28,8 @@ void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 {
 	if (GEngine) { GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Cyan, FString::Printf(TEXT("Joining %s"), *Address)); } // Can also use UEngine* GetEngine(); then do a null check
 
+	APlayerController* PlayerController = GetFirstLocalPlayerController(); // may not exist, so null check
+	if (!ensure(PlayerController != nullptr)) return;
 
+	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute); // We use absolute because we want to change the server we are on
 }
