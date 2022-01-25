@@ -18,6 +18,10 @@ void UPuzzlePlatformsGameInstance::Host()
 {
 	if (GEngine) { GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Cyan, FString::Printf(TEXT("Hosting"))); } // Can also use UEngine* GetEngine(); then do a null check
 
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap");
 }
 
 void UPuzzlePlatformsGameInstance::Join(const FString& Address)
